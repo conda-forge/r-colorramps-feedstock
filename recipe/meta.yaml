@@ -36,14 +36,10 @@ test:
 about:
   home: https://CRAN.R-project.org/package=colorRamps
   license: GPL
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
   summary: Builds gradient color maps
   license_family: GPL
 
 extra:
   recipe-maintainers:
     - conda-forge/r
-    - dpryan79
-    - johanneskoester
-    - bgruening
-    - daler
-    - jdblischak
