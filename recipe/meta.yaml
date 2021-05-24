@@ -1,5 +1,4 @@
 {% set version = '2.3' %}
-
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -8,37 +7,40 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: colorRamps_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/colorRamps_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/colorRamps/colorRamps_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/colorRamps_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/colorRamps/colorRamps_{{ version }}.tar.gz
   sha256: 3f10eab0602a42a2e5a79c7c04638be06cbf1e6f23979a1bd95d853e10940b6a
 
 build:
-  noarch: generic
+  merge_build_host: True  # [win]
   number: 1003
-
+  noarch: generic
   rpaths:
     - lib/R/lib/
     - lib/
+
 requirements:
   build:
+    - {{ posix }}zip               # [win]
+    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
+  host:
     - r-base
-
   run:
     - r-base
 
 test:
   commands:
-    - $R -e "library('colorRamps')"  # [not win]
+    - $R -e "library('colorRamps')"           # [not win]
     - "\"%R%\" -e \"library('colorRamps')\""  # [win]
 
 about:
   home: https://CRAN.R-project.org/package=colorRamps
-  license: GPL
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+  license: GPL-2.0-or-later
   summary: Builds gradient color maps
   license_family: GPL
+  license_file:
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
