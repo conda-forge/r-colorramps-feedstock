@@ -1,4 +1,4 @@
-{% set version = "2.3.2" %}
+{% set version = "2.3.4" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,7 +10,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/colorRamps_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/colorRamps/colorRamps_{{ version }}.tar.gz
-  sha256: b267a5254fece60ee0cc4b1241b161621b6e1959e344219bc0c239b8bca10833
+  sha256: 3cdf311123ea1924ee1446b9b5bd7aa3282ca00addb6e7181f98578eb6b18ff8
 
 build:
   merge_build_host: true  # [win]
